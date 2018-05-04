@@ -7,8 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ad38f0c3-98fb-4419-ab0a-e4ea3d3757d7" name="Default" comment="q">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/system.properties" afterPath="$PROJECT_DIR$/system.properties" />
+      <change beforePath="$PROJECT_DIR$/target/MultipartMailSender/META-INF/MANIFEST.MF" afterPath="" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -510,12 +509,12 @@
       <workItem from="1525348757430" duration="376000" />
       <workItem from="1525350786746" duration="59000" />
       <workItem from="1525350963073" duration="15000" />
-      <workItem from="1525351020184" duration="17641000" />
+      <workItem from="1525351020184" duration="17974000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="69707000" />
+    <option name="totallyTimeSpent" value="70040000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1368" height="747" extended-state="6" />
