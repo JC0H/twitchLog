@@ -1,5 +1,6 @@
 package ua.com.jcoh.config;
 
+import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -13,13 +14,15 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Properties;
 
 @Component
 @EnableJpaRepositories("ua.com.jcoh.dao")
 @EnableTransactionManagement
 public class DataCanfig {
-
+/*
     @Bean
     public DataSource dataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -28,6 +31,24 @@ public class DataCanfig {
         dataSource.setUsername("root");
         dataSource.setPassword("1");
         return dataSource;
+    }
+*/
+
+    //heroku config
+    @Bean
+    public BasicDataSource dataSource() throws URISyntaxException {
+        URI dbUri = new URI(System.getenv("CLEARDB_DATABASE_URL"));
+
+        String username = dbUri.getUserInfo().split(":")[0];
+        String password = dbUri.getUserInfo().split(":")[1];
+        String dbUrl = "jdbc:mysql://" + dbUri.getHost() + dbUri.getPath();
+
+        BasicDataSource basicDataSource = new BasicDataSource();
+        basicDataSource.setUrl(dbUrl);
+        basicDataSource.setUsername(username);
+        basicDataSource.setPassword(password);
+
+        return basicDataSource;
     }
 
     @Bean
@@ -42,9 +63,12 @@ public class DataCanfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
         factoryBean.setJpaVendorAdapter(vendorAdapter());
-        factoryBean.setDataSource(dataSource());
+        try {
+            factoryBean.setDataSource(dataSource());
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
         factoryBean.setPackagesToScan("ua.com.jcoh.entity");
-
         Properties properties = new Properties();
         properties.setProperty("hibernate.hbm2ddl.auto", "update");
         factoryBean.setJpaProperties(properties);
